@@ -1,0 +1,82 @@
+{
+  "layer": "bot",
+  "spacing": 0,
+  "height": 0,
+  "margin-bottom": 2,
+  "margin-top": 2,
+  "position": "top",
+  "margin-right": 2,
+  "margin-left": 2,
+  "modules-left": [
+    "sway/workspaces"
+  ],
+  "modules-center": [
+    "custom/rotate",
+    "custom/applauncher"
+  ],
+  "modules-right": [
+    "network",
+    "pulseaudio",
+    "tray",
+    "clock",
+    "custom/ups"
+  ],
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": false,
+    "tooltip": false
+  },
+  "custom/rotate": {
+    "format": "⟳",
+    "on-click": "echo vertical > /usr/local/etc/sway-mode && sway-sync-rotation",
+    "interval": "once",
+    "tooltip": false
+  },
+  "custom/ups": {
+    "exec": "/usr/local/bin/ups-status",
+    "interval": 2,
+    "return-type": "json",
+    "format": "{icon} {text}",
+    "format-icons": {
+      "charging": "󰂄",
+      "high": "󱊣",
+      "medium": "󱊢",
+      "low": "󱊡"
+    }
+  },
+  "custom/applauncher": {
+    "format": "〇",
+    "on-click": "pgrep wofi >/dev/null 2>&1 && killall wofi || wofi --show drun --location=top -y 15",
+    "tooltip": false
+  },
+  "tray": {
+    "spacing": 10,
+    "tooltip": false
+  },
+  "clock": {
+    "format": "󰅐 {:%H:%M}",
+    "tooltip": false
+  },
+  "network": {
+    "format-wifi": " {bandwidthDownBits}",
+    "format-ethernet": " {bandwidthDownBits}", 
+    "format-disconnected": "󰤮 No Network",
+    "interval": 5,
+    "tooltip": false
+  },
+  "pulseaudio": {
+    "scroll-step": 5,
+    "max-volume": 150,
+    "format": "{icon} {volume}%", 
+    "format-bluetooth": "{icon} {volume}%",
+    "format-icons": [
+      "",
+      "",
+      " "
+    ],
+    "nospacing": 1,
+    "format-muted": " ",
+    "on-click": "pavucontrol",
+    "tooltip": false
+  }
+}
