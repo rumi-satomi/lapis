@@ -1,0 +1,10 @@
+/etc/greetd/config.toml
+/etc/greetd/sway-config
+/etc/sway/config
+/etc/wofi/config
+/etc/wofi/style.css
+/etc/xdg/waybar/horizontal/config.jsonc
+/etc/xdg/waybar/horizontal/style.css
+/etc/xdg/waybar/vertical/config.jsonc
+/etc/xdg/waybar/vertical/style.css
+
