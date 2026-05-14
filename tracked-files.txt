@@ -1,8 +1,15 @@
+# Greetd
 /etc/greetd/config.toml
 /etc/greetd/sway-config
+
+# Sway
 /etc/sway/config
+
+# Wofi
 /etc/wofi/config
 /etc/wofi/style.css
+
+# Waybar
 /etc/xdg/waybar/horizontal/config.jsonc
 /etc/xdg/waybar/horizontal/style.css
 /etc/xdg/waybar/vertical/config.jsonc
