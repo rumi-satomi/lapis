@@ -1,0 +1,22 @@
+#!/bin/bash
+
+OUTPUT="eDP-1"
+MODE_FILE="/usr/local/etc/sway-mode"
+WAYBAR_DIR="/etc/greetd/waybar"
+
+# Start vertically as default
+if [ ! -f "$MODE_FILE" ]; then
+  echo "vertical" > "$MODE_FILE"
+fi
+
+MODE=$(cat "$MODE_FILE")
+
+killall waybar 2>/dev/null
+
+if [ "$MODE" = "vertical" ]; then
+  swaymsg output "$OUTPUT" transform 270
+  waybar -c "$WAYBAR_DIR/vertical/config.jsonc" -s "$WAYBAR_DIR/vertical/style.css" &
+elif [ "$MODE" = "horizontal" ]; then
+  swaymsg output "$OUTPUT" transform normal
+  waybar -c "$WAYBAR_DIR/horizontal/config.jsonc" -s "$WAYBAR_DIR/horizontal/style.css" &
+fi

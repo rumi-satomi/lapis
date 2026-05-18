@@ -1,0 +1,27 @@
+* {
+  border-radius: 4px;
+  font-size: 16px;
+  padding: 0px;
+  background: transparent;
+}
+
+window#waybar {
+  /* Linear gradients are used because it makes less harsh rounded border radius, gtk bug :p */
+  background-image: linear-gradient(to bottom, #141216 100%, #141216 100%);
+  border-radius: 14px;
+  padding: 0px;
+  border-style: none;
+}
+
+#custom-rotate,
+#custom-ups {
+  background-image: linear-gradient(to bottom, #27232b 100%, #27232b 100%);
+
+  margin: 4px;
+  padding: 4px 8px;
+  border-radius: 8px;
+  color: #d8cab8;
+
+  border-style: none;
+  transition-duration: 120ms;
+}

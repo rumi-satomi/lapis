@@ -1,0 +1,30 @@
+{
+  "layer": "bot",
+  "position": "top",
+  "modules-left": [
+  ],
+  "modules-center": [
+    "custom/rotate"
+  ],
+  "modules-right": [
+    "custom/ups"
+  ],
+  "custom/rotate": {
+    "format": "⟳",
+    "on-click": "echo vertical > /usr/local/etc/sway-mode && /etc/greetd/sway-sync-rotation",
+    "interval": "once",
+    "tooltip": false
+  },
+  "custom/ups": {
+    "exec": "/usr/local/bin/ups-status",
+    "interval": 2,
+    "return-type": "json",
+    "format": "{icon} {text}",
+    "format-icons": {
+      "charging": "󰂄",
+      "high": "󱊣",
+      "medium": "󱊢",
+      "low": "󱊡"
+    }
+  }
+}

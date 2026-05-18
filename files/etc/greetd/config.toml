@@ -9,7 +9,7 @@ vt = 1
 # `agreety` is the bundled agetty/login-lookalike. You can replace `/bin/sh`
 # with whatever you want started, such as `sway`.
 #dbus-run-session
-command = "sway -c /etc/greetd/sway-config > /tmp/sway-greeter.log 2>&1"
+command = "sway -c /etc/greetd/sway/config > /tmp/sway-greeter.log 2>&1"
 
 # The user to run the command as. The privileges this user must have depends
 # on the greeter. A graphical greeter may for example require the user to be

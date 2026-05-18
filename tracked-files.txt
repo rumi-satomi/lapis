@@ -1,6 +1,11 @@
 # Greetd
 /etc/greetd/config.toml
-/etc/greetd/sway-config
+/etc/greetd/sway/config
+/etc/greetd/sway-sync-rotation
+/etc/greetd/waybar/horizontal/config.jsonc
+/etc/greetd/waybar/horizontal/style.css
+/etc/greetd/waybar/vertical/config.jsonc
+/etc/greetd/waybar/vertical/style.css
 
 # Sway
 /etc/sway/config
@@ -15,3 +20,5 @@
 /etc/xdg/waybar/vertical/config.jsonc
 /etc/xdg/waybar/vertical/style.css
 
+# Nvim
+/home/rumi/.config/nvim/init.lua

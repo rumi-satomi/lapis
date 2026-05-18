@@ -1,0 +1,47 @@
+[{
+  "layer": "bot",
+  "position": "top",
+  "modules-left": [
+  ],
+  "modules-center": [
+    "custom/rotate",
+  ],
+  "modules-right": [
+    "custom/ups"
+  ],
+  "custom/rotate": {
+    "format": "⟳",
+    "on-click": "echo horizontal > /usr/local/etc/sway-mode && /etc/greetd/sway-sync-rotation",
+    "interval": "once",
+    "tooltip": false
+  },
+  "custom/ups": {
+    "exec": "/usr/local/bin/ups-status",
+    "interval": 2,
+    "return-type": "json",
+    "format": "{icon} {text}",
+    "format-icons": {
+      "charging": "󰂄",
+      "high": "󱊣",
+      "medium": "󱊢",
+      "low": "󱊡"
+    }
+  }
+},
+{
+  "layer": "bot",
+  "position": "bottom",
+  "modules-left": [
+  ],
+  "modules-center": [
+  ],
+  "modules-right": [
+    "custom/keyboard"
+  ],
+  "custom/keyboard": {
+    "format": "ABC",
+    "on-click": "pkill -SIGRTMIN wvkbd-keyboard",
+    "interval": "once",
+    "tooltip": false
+  }
+}]
