@@ -7,7 +7,10 @@ vim.pack.add{
 	{ src = 'https://github.com/nvim-tree/nvim-tree.lua'},
 }
 
-require('blink.cmp').setup()
+local cmp = require('blink.cmp')
+cmp.build():pwait()
+cmp.setup()
+
 require('nvim-tree').setup()
 
 vim.cmd.colorscheme('tokyonight')
@@ -22,5 +25,6 @@ vim.lsp.enable('cssls')
 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
+vim.opt.number = true
 
 vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<CR>')
