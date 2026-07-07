@@ -29,7 +29,8 @@ set $application_launcher pgrep wofi >/dev/null 2>&1 && killall wofi || wofi --s
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
-output eDP-1 resolution 1024x600
+output eDP-1 resolution 1024x600 pos 0 0
+workspace 1 output eDP-1
 
 ### Ricing
 smart_gaps on

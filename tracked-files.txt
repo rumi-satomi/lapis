@@ -15,6 +15,7 @@
 /etc/wofi/style.css
 
 # Waybar
+/etc/xdg/waybar/modules.json
 /etc/xdg/waybar/horizontal/config.jsonc
 /etc/xdg/waybar/horizontal/style.css
 /etc/xdg/waybar/vertical/config.jsonc
