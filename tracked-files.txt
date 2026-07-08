@@ -23,6 +23,8 @@
 
 # Nvim
 /home/rumi/.config/nvim/init.lua
+/home/rumi/.config/nvim/lua/utils.lua
+/home/rumi/.config/nvim/lua/cmake/commands.lua
 
 # XDG Desktop Portal
 /etc/xdg/xdg-desktop-portal-wlr/config
