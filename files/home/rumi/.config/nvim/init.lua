@@ -28,3 +28,15 @@ vim.opt.shiftwidth = 4
 vim.opt.number = true
 
 vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<CR>')
+
+vim.api.nvim_create_user_command("PackUpdate", function()
+	vim.pack.update()
+end, {});
+
+vim.api.nvim_create_user_command("CMakeConfigure", function()
+	vim.cmd("split | terminal cmake -S . -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON")
+end, {})
+
+vim.api.nvim_create_user_command("CMakeBuild", function()
+	vim.cmd("split | terminal cmake --build build")
+end, {})
