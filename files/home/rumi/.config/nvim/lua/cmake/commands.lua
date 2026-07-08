@@ -42,7 +42,7 @@ vim.api.nvim_create_user_command('CMakeRun', function(opts)
 		return
 	end
 
-	smart_terminal('./' .. path)
+	utils.smart_terminal('./' .. path)
 end, {
 	nargs = 1,
 	complete = function(arglead)
