@@ -29,9 +29,6 @@ set $application_launcher pgrep wofi >/dev/null 2>&1 && killall wofi || wofi --s
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
-output eDP-1 resolution 1024x600 pos 0 0
-workspace 1 output eDP-1
-
 ### Ricing
 smart_gaps on
 smart_borders on
@@ -44,18 +41,17 @@ default_border pixel 1px
 default_floating_border pixel 1px
 
 # Border colors:
-#				border	bg	text	indica	child border
+#						border	bg		text	indica	child border
 client.focused			#d8cab8	#141216	#d8cab8	#d8cab8	#d8cab8
-client.focused_inactive		#ac82e9	#141216	#d8cab8	#ac82e9	#ac82e9
+client.focused_inactive	#ac82e9	#141216	#d8cab8	#ac82e9	#ac82e9
 client.unfocused		#ac82e9	#141216	#d8cab8	#ac82e9	#ac82e9
 client.urgent			#fcb167	#141216	#d8cab8	#fcb167	#fcb167
 client.placeholder		#ac82e9	#141216	#d8cab8	#ac82e9	#ac82e9
 
-
-
 ### Custom waybar
 exec_always sway-sync-rotation
 exec_always sh -c 'pkill -x wvkbd-keyboard; wvkbd-keyboard --hidden &'
+exec_always sh -c 'pkill -x kanshi || true; kanshi -c /etc/kanshi/config'
 
 ### Idle configuration
 #
@@ -74,16 +70,21 @@ exec_always sh -c 'pkill -x wvkbd-keyboard; wvkbd-keyboard --hidden &'
 #
 # Example configuration:
 #
-#   input type:touchpad {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
-#
-    input type:keyboard {
-        xkb_layout de
-    }
+#input type:touchpad {
+#	dwt enabled
+#	tap enabled
+#	natural_scroll enabled
+#	middle_emulation enabled
+#}
+
+input type:keyboard {
+    xkb_layout de
+}
+
+### XP Pen Artist 16 3rd Gen Config
+input "10429:2:XP-Pen_Mouse" {
+	xkb_layout us
+}
 #
 # You can also configure each device individually.
 # Read `man 5 sway-input` for more information about this section.

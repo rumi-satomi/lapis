@@ -20,7 +20,30 @@ local function find_executables()
 end
 
 vim.api.nvim_create_user_command('CMakeConfigure', function()
-	utils.smart_terminal('cmake -S . -B build -DCMAKE_EXPORT_COMPILE_COMMANDS=ON')
+	vim.cmd('botright vnew')
+
+	vim.fn.jobstart(
+		{
+			'cmake',
+			'-S', '.',
+			'-B', 'build',
+			'-DCMAKE_EXPORT_COMPILE_COMMANDS=ON'
+		}, {
+			term = true,
+			on_exit = function(_, exit_code)
+				vim.schedule(function()
+					if exit_code == 0 then
+						vim.notify('CMake configure finished')
+						if #vim.lsp.get_clients({ name = 'clangd' }) > 0 then
+							vim.cmd('lsp restart clangd')
+						end
+					else
+						vim.notify('CMake configure failed', vim.log.levels.ERROR)
+					end
+				end)
+			end
+		}
+	)
 end, {})
 
 vim.api.nvim_create_user_command('CMakeBuild', function()
@@ -28,7 +51,7 @@ vim.api.nvim_create_user_command('CMakeBuild', function()
 end, {})
 
 vim.api.nvim_create_user_command('CMakeRun', function(opts)
-	local executable = opts.args
+	local executable = opts.fargs[1]
 
 	if not executable or executable == '' then
 		vim.notify('Usage: :CMakeRun <executable>', vim.log.levels.ERROR)
@@ -42,10 +65,23 @@ vim.api.nvim_create_user_command('CMakeRun', function(opts)
 		return
 	end
 
-	utils.smart_terminal('./' .. path)
+	utils.smart_terminal('./' .. path .. ' ' .. table.concat(opts.fargs, ' ', 2))
 end, {
-	nargs = 1,
-	complete = function(arglead)
+	nargs = '+',
+	complete = function(arglead, cmdline, cursorpos)
+		-- Only complete the executable (first argument)
+		local before_cursor = cmdline:sub(1, cursorpos - 1)
+		local before_arg = before_cursor:sub(1, #before_cursor - #arglead)
+
+		local previous_args = before_arg:gsub(
+			'^%s*:?CMakeRun%s*',
+			''
+		)
+
+		if previous_args:match('%S') then
+			return {}
+		end
+
 		local matches = {}
 
 		for _, exe in ipairs(find_executables()) do

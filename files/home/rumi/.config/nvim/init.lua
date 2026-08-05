@@ -22,7 +22,7 @@ vim.lsp.enable('bashls')
 vim.lsp.enable('clangd')
 vim.lsp.enable('cmake')
 vim.lsp.enable('lua_ls')
-vim.lsp.enable('java_language_server')
+vim.lsp.enable('jdtls')
 vim.lsp.enable('cssls')
 
 vim.opt.tabstop = 4

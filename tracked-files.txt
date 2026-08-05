@@ -7,6 +7,9 @@
 /etc/greetd/waybar/vertical/config.jsonc
 /etc/greetd/waybar/vertical/style.css
 
+# Kanshi
+/etc/kanshi/config
+
 # Sway
 /etc/sway/config
 

@@ -1,6 +1,3 @@
-output eDP-1 enable
-output HDMI-A-1 disable
-
 gaps inner 0
 gaps outer 0
 
@@ -9,10 +6,16 @@ default_floating_border none
 
 exec_always /etc/greetd/sway-sync-rotation
 exec_always sh -c 'pkill -x wvkbd-keyboard; wvkbd-keyboard &'
+exec_always sh -c 'pkill -x kanshi || true; kanshi -c /etc/kanshi/config'
 exec "gtkgreet -c 'uwsm start sway.desktop > /tmp/uwsm-sway.log 2>&1'; swaymsg exit" 
 
 input type:keyboard {
 	xkb_layout de
+}
+
+input type:tablet_tool {
+	events enabled
+	tool_mode pen absolute
 }
 
 include /etc/sway/config.d/*

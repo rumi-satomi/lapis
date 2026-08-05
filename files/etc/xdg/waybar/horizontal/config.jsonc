@@ -1,4 +1,4 @@
-{
+[{
 	"layer": "top",
 	"position": "top",
 	"output": ["eDP-1"],
@@ -25,4 +25,24 @@
 		"interval": "once",
 		"tooltip": false
 	}
-}
+}, {
+	"layer": "top",
+	"position": "top",
+	"output": ["HDMI-A-1"],
+	"include": [
+		"/etc/xdg/waybar/modules.json"
+	],
+	"modules-left": [
+		"sway/workspaces"
+	],
+	"modules-center": [
+		"custom/applauncher"
+	],
+	"modules-right": [
+		"network",
+		"pulseaudio",
+		"tray",
+		"clock",
+		"custom/ups"
+	]
+}]
