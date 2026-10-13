@@ -1,0 +1,6 @@
+[submodule "vendor/wvkbd"]
+	path = vendor/wvkbd
+	url = https://github.com/jjsullivan5196/wvkbd.git
+[submodule "vendor/lisgd"]
+	path = vendor/lisgd
+	url = https://github.com/jjsullivan5196/lisgd.git

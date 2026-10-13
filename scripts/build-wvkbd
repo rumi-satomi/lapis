@@ -1,0 +1,26 @@
+#!/bin/sh
+set -eu
+
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+
+WVKBD="$ROOT/vendor/wvkbd"
+CONFIG="$ROOT/config/wvkbd"
+OUTPUT="$ROOT/runtime/libexec"
+
+cleanup() {
+	rm "$WVKBD/config.lapis.h"
+	rm "$WVKBD/layout.lapis.h"
+	rm "$WVKBD/keymap.lapis.h"
+}
+
+# Automatically runs cleanup when script ends or fails
+trap cleanup EXIT
+
+cp "$CONFIG/config.lapis.h" "$WVKBD/"
+cp "$CONFIG/layout.lapis.h" "$WVKBD/"
+cp "$CONFIG/keymap.lapis.h" "$WVKBD/"
+
+make -C $WVKBD LAYOUT=lapis clean
+make -C $WVKBD LAYOUT=lapis
+
+mv "$WVKBD/wvkbd-lapis" "$ROOT/runtime/libexec/"

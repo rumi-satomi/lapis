@@ -1,0 +1,23 @@
+#!/bin/sh
+set -eu
+
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+
+LISGD="$ROOT/vendor/lisgd"
+CONFIG="$ROOT/config/lisgd"
+OUTPUT="$ROOT/runtime/libexec"
+
+cleanup() {
+	rm "$LISGD/config.h"
+	rm "$LISGD/lisgd.o"
+}
+
+# Automatically runs cleanup when script ends or fails
+trap cleanup EXIT
+
+cp "$CONFIG/config.h" "$LISGD/"
+
+make -C $LISGD LAYOUT=lapis clean
+make -C $LISGD LAYOUT=lapis
+
+mv "$LISGD/lisgd" "$ROOT/runtime/libexec/"
