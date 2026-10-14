@@ -10,3 +10,4 @@ wvkbd:
 
 lisgd:
 	./scripts/build-lisgd
+
