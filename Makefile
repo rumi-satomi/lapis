@@ -1,6 +1,9 @@
-.PHONY: all wvkbd lisgd
+.PHONY: all setup-environment wvkbd lisgd
 
-all: wvkbd lisgd
+all: setup-environment wvkbd lisgd
+
+setup-environment:
+	./scripts/setup-environment
 
 wvkbd:
 	./scripts/build-wvkbd

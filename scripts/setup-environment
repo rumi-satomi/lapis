@@ -1,0 +1,19 @@
+#!/bin/sh
+
+set -euo pipefail
+
+file=/etc/environment
+key=XDG_CONFIG_DIRS
+value=/opt/lapis/xdg:/etc/xdg
+
+touch "$file"
+
+if grep -q "^${key}=" "$file"; then
+	sed -i "s|^${key}=.*|${key}=${value}|" "$file"
+else
+	# Ensure existing file ends with new line
+	if [[ -s "$file" && $(tail -c 1 "$file" | wv -l) -eq 0 ]]; then
+		printf '\n' >> "$file"
+	fi
+	printf '%s=%s\n' "$key" "$value" >> "$file"
+fi
