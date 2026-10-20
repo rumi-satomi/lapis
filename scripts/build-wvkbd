@@ -16,11 +16,12 @@ cleanup() {
 # Automatically runs cleanup when script ends or fails
 trap cleanup EXIT
 
+make -C $WVKBD LAYOUT=lapis clean
+
 cp "$CONFIG/config.lapis.h" "$WVKBD/"
 cp "$CONFIG/layout.lapis.h" "$WVKBD/"
 cp "$CONFIG/keymap.lapis.h" "$WVKBD/"
 
-make -C $WVKBD LAYOUT=lapis clean
 make -C $WVKBD LAYOUT=lapis
 
 mv "$WVKBD/wvkbd-lapis" "$ROOT/runtime/libexec/"

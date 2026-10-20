@@ -23,6 +23,6 @@ Gesture gestures[] = {
 	{ 1,         SwipeULDR,   "echo vertical > /usr/local/etc/sway-mode && sway-sync-rotation && pkill -USR1 -q 3 lisgd" },
 	{ 2,         SwipeLR,     "swaymsg workspace prev" },
 	{ 2,         SwipeRL,     "swaymsg workspace next" },
-	{ 2,         SwipeDU,     "pkill -SIGUSR2 wvkbd-keyboard" },
-	{ 2,         SwipeUD,     "pkill -SIGUSR1 wvkbd-keyboard" },
+	{ 2,         SwipeDU,     "pkill -SIGUSR2 wvkbd-lapis" },
+	{ 2,         SwipeUD,     "pkill -SIGUSR1 wvkbd-lapis" },
 };
