@@ -20,10 +20,12 @@ PanelWindow {
 		anchors.fill: parent
 		spacing: Theme.spacing
 
-		Workspaces {
+		Workspaces {}
+
+		CreateWorkspaceButton {}
+
+		Item {
 			Layout.fillWidth: true
-			Layout.fillHeight: true
-			Layout.minimumWidth: 100
 		}
 	}
 }

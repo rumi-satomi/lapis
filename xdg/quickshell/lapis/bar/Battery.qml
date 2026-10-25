@@ -4,8 +4,8 @@ import QtQuick.Layouts
 import "../singletons/"
 
 Rectangle {
-	implicitWidth: batteryBody.implicitWidth + 64
-	implicitHeight: batteryBody.implicitHeight + 12
+	implicitWidth: root.implicitWidth + 16
+	implicitHeight: Theme.barItemHeight
 
 	radius: Theme.radius
 	color: Theme.surface1
@@ -23,7 +23,7 @@ Rectangle {
 			id: batteryBody
 
 			implicitWidth: 28
-			implicitHeight: 14
+			implicitHeight: Theme.fontSize
 
 			radius: 3
 			color: "transparent"

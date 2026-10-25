@@ -19,6 +19,7 @@ set $term foot
 set $application_launcher pgrep wofi >/dev/null 2>&1 && killall wofi || wofi --show drun --config /etc/wofi/config --style /etc/wofi/style.css
 
 ### Output configuration
+output eDP-1 max_render_time 2
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 #output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
@@ -29,29 +30,32 @@ set $application_launcher pgrep wofi >/dev/null 2>&1 && killall wofi || wofi --s
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
-### Ricing
+### Gaps
 smart_gaps on
 smart_borders on
+gaps inner 6px
 
-# Gaps
-gaps inner 8px
-
-# Border width
+### Border width
 default_border pixel 1px
 default_floating_border pixel 1px
 
 # Border colors:
 #						border	bg		text	indica	child border
-client.focused			#d8cab8	#141216	#d8cab8	#d8cab8	#d8cab8
-client.focused_inactive	#ac82e9	#141216	#d8cab8	#ac82e9	#ac82e9
-client.unfocused		#ac82e9	#141216	#d8cab8	#ac82e9	#ac82e9
-client.urgent			#fcb167	#141216	#d8cab8	#fcb167	#fcb167
-client.placeholder		#ac82e9	#141216	#d8cab8	#ac82e9	#ac82e9
+client.focused			#BB86FC	#121212	#FFFFFF	#FFFFFF	#FFFFFF
+client.focused_inactive	#FFFFFF	#121212	#FFFFFF #BB86FC	#BB86FC
+client.unfocused		#BB86FC	#121212	#FFFFFF	#BB86FC	#BB86FC
+client.urgent			#fcb167	#121212	#FFFFFF	#fcb167	#fcb167
+client.placeholder		#BB86FC	#121212	#FFFFFF	#BB86FC	#BB86FC
 
-### Custom waybar
+### Sync rotation
 exec_always sway-sync-rotation
-exec_always sh -c 'pkill -x wvkbd-keyboard; wvkbd-keyboard --hidden &' #--auto
-exec_always sh -c 'pkill -x kanshi || true; kanshi -c /etc/kanshi/config'
+
+### Kanshi to manage docked and handheld mode
+exec kanshi
+exec_always kanshictl reload
+
+### Quickshell
+exec qs -c lapis
 
 ### Idle configuration
 #
@@ -67,16 +71,6 @@ exec_always sh -c 'pkill -x kanshi || true; kanshi -c /etc/kanshi/config'
 # resumed. It will also lock your screen before your computer goes to sleep.
 
 ### Input configuration
-#
-# Example configuration:
-#
-#input type:touchpad {
-#	dwt enabled
-#	tap enabled
-#	natural_scroll enabled
-#	middle_emulation enabled
-#}
-
 input type:keyboard {
     xkb_layout de
 }
@@ -239,7 +233,6 @@ bindsym $mod+r mode "resize"
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
     # Special key to take a screenshot with grim
     bindsym Print exec grim
-
 
 
 include /etc/sway/config.d/*

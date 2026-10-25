@@ -5,7 +5,7 @@ import "../singletons/"
 
 Rectangle {
 	implicitWidth: label.implicitWidth + 16
-	implicitHeight: label.implicitHeight + 8
+	implicitHeight: Theme.barItemHeight
 
 	radius: Theme.radius
 	color: Theme.surface1

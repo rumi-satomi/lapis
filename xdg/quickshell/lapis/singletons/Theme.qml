@@ -20,10 +20,12 @@ Singleton {
 	readonly property color surfaceForeground: "#FFFFFF"
 
 	readonly property int radius: 8
-	readonly property int spacing: 8
+	readonly property int spacing: 6
 
-	readonly property int barHeight: 32
+	readonly property int barHeight: 40
+	readonly property int barSpacingVertical: 4
+	readonly property int barItemHeight: barHeight - 2 * barSpacingVertical
 
 	readonly property string fontFamily: "Noto Sans"
-	readonly property int fontSize: 13
+	readonly property int fontSize: 16
 }

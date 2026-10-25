@@ -15,16 +15,7 @@ Singleton {
 
 	function command() {
 		const args = [Paths.wvkbd, "--hidden"]
-		
-		console.log("phoneMode:", DeviceState.phoneMode)
-		console.log("vertical auto", Settings.autoKeyboardVertical)
-		console.log("horizontal auto:", Settings.autoKeyboardHorizontal)
-		console.log("effective autoEnabled:", root.autoEnabled)
-
 		if (root.autoEnabled) args.push("--auto")
-		
-		console.log("Starting wvkbd with:", JSON.stringify(args))
-
 		return args
 	}
 

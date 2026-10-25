@@ -10,7 +10,11 @@ Singleton {
 	Process {
 		id: gestures
 
-		command: [Paths.lisgd]
+		command: [
+			Paths.lisgd,
+			"-o",
+			DeviceState.phoneMode ? "3" : "0"
+		]
 
 		running: Settings.gesturesEnabled
 	}

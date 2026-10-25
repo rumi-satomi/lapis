@@ -1,20 +1,22 @@
 import QtQuick
-import Quickshell
 import "../singletons"
+import "../popup"
 
 Rectangle {
 	id: root
 
-	implicitWidth: 28
-	implicitHeight: 24
+	implicitWidth: label.implicitWidth + 16
+	implicitHeight: Theme.barItemHeight
 
 	radius: Theme.radius
 	color: Theme.surface1
 
 	Text {
+		id: label
+
 		anchors.centerIn: parent
 
-		text: "Settings"
+		text: "⚙"
 		font.family: Theme.fontFamily
 		font.pixelSize: Theme.fontSize
 
@@ -22,11 +24,7 @@ Rectangle {
 	}
 
 	MouseArea {
-		id: mouseArea
-
 		anchors.fill: parent
-		hoverEnabled: true
-
 		onClicked: settingsPopup.toggle()
 	}
 

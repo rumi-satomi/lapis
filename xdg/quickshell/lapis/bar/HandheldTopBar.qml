@@ -7,10 +7,10 @@ RowLayout {
 	spacing: Theme.spacing
 
 	Workspaces {
-		Layout.fillWidth: true
-		Layout.fillHeight: true
-		Layout.minimumWidth: 100
+		//Layout.maximumWidth: 200
 	}
+
+	CreateWorkspaceButton {}
 
 	Item {
 		Layout.fillWidth: true
