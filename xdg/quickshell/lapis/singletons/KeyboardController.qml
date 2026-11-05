@@ -14,7 +14,15 @@ Singleton {
 	}
 
 	function command() {
-		const args = [Paths.wvkbd, "--hidden"]
+		const args = [
+			Paths.wvkbd, "--hidden", "--no-popup",
+			"--bg", Theme.background.toString().slice(1),
+			"--fg", Theme.surface1.toString().slice(1),
+			"--fg-sp", Theme.surface1.toString().slice(1),
+			"--press", Theme.primary.toString().slice(1),
+			"--press-sp", Theme.primary.toString().slice(1),
+			"--text", Theme.backgroundForeground.toString().slice(1)
+		]
 		if (root.autoEnabled) args.push("--auto")
 		return args
 	}

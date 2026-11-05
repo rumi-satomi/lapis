@@ -11,7 +11,6 @@ PopupWindow {
 
 	default property alias popupContent: contentColumn.data
 
-	property int popupWidth: 300
 	property int padding: 12
 	property int slideDistance: 16
 

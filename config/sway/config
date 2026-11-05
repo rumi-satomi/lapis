@@ -4,6 +4,7 @@
 #
 # Read `man 5 sway` for a complete reference.
 
+
 ### Variables
 #
 # Logo key. Use Mod1 for Alt.
@@ -41,11 +42,11 @@ default_floating_border pixel 1px
 
 # Border colors:
 #						border	bg		text	indica	child border
-client.focused			#BB86FC	#121212	#FFFFFF	#FFFFFF	#FFFFFF
-client.focused_inactive	#FFFFFF	#121212	#FFFFFF #BB86FC	#BB86FC
-client.unfocused		#BB86FC	#121212	#FFFFFF	#BB86FC	#BB86FC
+client.focused			#BB86FC	#121212	#FFFFFF	#BB86FC	#BB86FC	
+client.focused_inactive	#FFFFFF	#121212	#FFFFFF #FFFFFF	#FFFFFF
+client.unfocused		#FFFFFF	#121212	#FFFFFF	#FFFFFF	#FFFFFF
 client.urgent			#fcb167	#121212	#FFFFFF	#fcb167	#fcb167
-client.placeholder		#BB86FC	#121212	#FFFFFF	#BB86FC	#BB86FC
+client.placeholder		#FFFFFF	#121212	#FFFFFF	#FFFFFF	#FFFFFF
 
 ### Sync rotation
 exec_always sway-sync-rotation
@@ -234,5 +235,5 @@ bindsym $mod+r mode "resize"
     # Special key to take a screenshot with grim
     bindsym Print exec grim
 
-
+### Session Environment
 include /etc/sway/config.d/*

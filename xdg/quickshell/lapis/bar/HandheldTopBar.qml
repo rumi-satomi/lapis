@@ -16,6 +16,8 @@ RowLayout {
 		Layout.fillWidth: true
 	}
 
+	BluetoothButton {}
+
 	SettingsButton {}
 
 	Battery {}

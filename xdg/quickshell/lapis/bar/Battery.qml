@@ -1,7 +1,8 @@
 import QtQuick
 import QtQuick.Layouts
 
-import "../singletons/"
+import "../singletons"
+import "../popup"
 
 Rectangle {
 	implicitWidth: root.implicitWidth + 16
@@ -74,5 +75,15 @@ Rectangle {
 			font.family: Theme.fontFamily
 			font.pixelSize: Theme.fontSize
 		}
+	}
+
+	MouseArea {
+		anchors.fill: parent
+		onClicked: batteryPopup.toggle()
+	}
+
+	BatteryPopup {
+		id: batteryPopup
+		anchorItem: root
 	}
 }
