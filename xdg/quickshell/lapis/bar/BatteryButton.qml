@@ -80,23 +80,13 @@ Rectangle {
 		}
 	}
 
-	LazyLoader {
-		id: batteryPopupLoader
-
-		BatteryPopup {
-			anchorItem: batteryButton
-		}
+	BatteryPopup {
+		id: batteryPopup
+		anchorItem: batteryButton
 	}
 
 	MouseArea {
 		anchors.fill: parent
-
-		onClicked: {
-			batteryPopupLoader.active = true
-
-			const popup = batteryPopupLoader.item
-			if (popup) popup.toggle()
-		}
+		onClicked: batteryPopup.toggle()
 	}
-
 }

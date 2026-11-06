@@ -14,5 +14,5 @@ RowLayout {
 
 	SettingsButton {}
 
-	Battery {}
+	BatteryButton {}
 }

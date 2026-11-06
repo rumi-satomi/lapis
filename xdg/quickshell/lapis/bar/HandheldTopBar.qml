@@ -20,7 +20,7 @@ RowLayout {
 
 	SettingsButton {}
 
-	Battery {}
+	BatteryButton {}
 
 	Clock {}
 }

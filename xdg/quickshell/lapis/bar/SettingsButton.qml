@@ -25,23 +25,14 @@ Rectangle {
 		color: Theme.surfaceForeground
 	}
 
-	LazyLoader {
-		id: settingsLoader
-		
-		SettingsPopup {
-			anchorItem: root
-		}
+	SettingsPopup {
+		id: settingsPopup
+		anchorItem: root
 	}
 
 	MouseArea {
 		anchors.fill: parent
-
-		onClicked: {
-			settingsLoader.active = true
-
-			const popup = settingsLoader.item
-			if (popup) popup.toggle()
-		}
+		onClicked: settingsPopup.toggle()
 	}
 
 }
