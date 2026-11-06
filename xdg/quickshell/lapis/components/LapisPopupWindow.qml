@@ -1,5 +1,5 @@
 import QtQuick
-import QtQuick.Layouts
+import QtQuick.Controls.Basic as Controls
 import Quickshell
 
 import "../singletons"
@@ -9,126 +9,120 @@ PopupWindow {
 
 	required property Item anchorItem
 
-	default property alias popupContent: contentColumn.data
+	property alias body: frame.contentItem
 
 	property int padding: 12
 	property int slideDistance: 16
 
-	property bool expanded: false
 	property bool closing: false
+	property real reveal: 0
 
-	anchor.item: anchorItem
-	anchor.rect.x: (anchorItem.width - implicitWidth) / 2
-	anchor.rect.y: anchorItem.height + Theme.spacing
+	property bool wasShown: false
 
-	//implicitWidth: popupWidth
-	implicitWidth: contentColumn.implicitWidth + 2 * padding
-	implicitHeight: contentColumn.implicitHeight + 2 * padding
+	signal dismissed()
 
 	color: "transparent"
-	grabFocus: false
 	visible: false
 
+	implicitWidth: frame.implicitContentWidth + 2 * padding
+	implicitHeight: frame.implicitContentHeight + 2 * padding
+
+	anchor.item: root.anchorItem
+
+	anchor.rect.x: (root.anchorItem.width - root.implicitWidth) / 2
+	anchor.rect.y: root.anchorItem.height + Theme.spacing
+
 	function open() {
-		if (visible && !closing) return
-
-		closing = false
-		closeAnimation.stop()
-
-		expanded = false
-		visible = true
-
-		openAnimation.start()
-	}
-
-	function close () {
-		if (!visible || closing) return
-
-		closing = true
-		openAnimation.stop()
-		closeAnimation.start()
+		PopupManager.open(root)
 	}
 
 	function toggle() {
-		if (visible && !closing) {
-			close()
-		} else {
-			open()
+		PopupManager.toggle(root)
+	}
+
+	function close() {
+		hideAnimated()
+	}
+
+	function showAnimated() {
+		if (visible && !closing) return
+		motion.stop()
+		closing = false
+		visible = true
+
+		motion.to = 1
+		motion.duration = 200
+		motion.start()
+	}
+
+	function hideAnimated() {
+		if (!visible) {
+			PopupManager.release(root)
+			return
 		}
+
+		if (closing) return
+
+		motion.stop()
+		closing = true
+
+		motion.to = 0
+		motion.duration = 160
+		motion.start()
 	}
 
 	onVisibleChanged: {
 		if (!visible) {
-			openAnimation.stop()
-			closeAnimation.stop()
-			expanded = false
-			closing = false
+			wasShown = true
+			return
+		}
+
+		motion.stop()
+		reveal = 0
+		closing = false
+
+		PopupManager.release(root)
+
+		if (wasShown) {
+			wasShown = false
+			dismissed()
 		}
 	}
 
-	Rectangle {
-		id: panel
+	onClosed: root.visible = false
 
-		width: parent.width
-		height: parent.height
+	onAnchorItemChanged: {
+		if (!anchorItem && visible) visible = false
+	}
 
-		radius: Theme.radius
-		color: Theme.surface2
+	Component.onDestruction: PopupManager.release(root)
 
-		y: root.expanded ? 0 : -root.slideDistance
-		opacity: root.expanded ? 1 : 0
+	Controls.Control {
+		id: frame
 
-		ColumnLayout {
-			id: contentColumn
+		width: root.width
+		height: root.height
+		padding: root.padding
 
-			anchors.fill: parent
-			anchors.margins: root.padding
+		y: -root.slideDistance * (1 - root.reveal)
 
-			spacing: Theme.spacing
+		opacity: root.reveal
+
+		background: Rectangle {
+			radius: Theme.radius
+			color: Theme.surface2
 		}
 	}
 
-	ParallelAnimation {
-		id: openAnimation
+	NumberAnimation {
+		id: motion
 
-		NumberAnimation {
-			target: panel
-			property: "y"
-			from: -root.slideDistance
-			to: 0
-			duration: 200
-			easing.type: Easing.OutCubic
+		target: root
+		property: "reveal"
+		easing.type: Easing.OutCubic
+
+		onFinished: {
+			if (root.closing) root.visible = false
 		}
-
-		NumberAnimation {
-			target: panel
-			property: "opacity"
-			from: 0
-			to: 1
-			duration: 200
-		}
-		
-		onFinished: root.expanded = true
-	}
-
-	ParallelAnimation {
-		id: closeAnimation
-
-		NumberAnimation {
-			target: panel
-			property: "y"
-			to: -root.slideDistance
-			duration: 200
-			easing.type: Easing.OutCubic
-		}
-
-		NumberAnimation {
-			target: panel
-			property: "opacity"
-			to: 0
-			duration: 200
-		}
-		
-		onFinished: root.visible = false
 	}
 }

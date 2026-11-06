@@ -1,10 +1,13 @@
 import QtQuick
 import QtQuick.Layouts
+import Quickshell
 
 import "../singletons"
 import "../popup"
 
 Rectangle {
+	id: batteryButton
+
 	implicitWidth: root.implicitWidth + 16
 	implicitHeight: Theme.barItemHeight
 
@@ -77,13 +80,23 @@ Rectangle {
 		}
 	}
 
-	MouseArea {
-		anchors.fill: parent
-		onClicked: batteryPopup.toggle()
+	LazyLoader {
+		id: batteryPopupLoader
+
+		BatteryPopup {
+			anchorItem: batteryButton
+		}
 	}
 
-	BatteryPopup {
-		id: batteryPopup
-		anchorItem: root
+	MouseArea {
+		anchors.fill: parent
+
+		onClicked: {
+			batteryPopupLoader.active = true
+
+			const popup = batteryPopupLoader.item
+			if (popup) popup.toggle()
+		}
 	}
+
 }

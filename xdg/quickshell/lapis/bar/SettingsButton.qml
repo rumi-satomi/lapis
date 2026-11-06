@@ -1,4 +1,6 @@
 import QtQuick
+import Quickshell
+
 import "../singletons"
 import "../popup"
 
@@ -23,13 +25,23 @@ Rectangle {
 		color: Theme.surfaceForeground
 	}
 
-	MouseArea {
-		anchors.fill: parent
-		onClicked: settingsPopup.toggle()
+	LazyLoader {
+		id: settingsLoader
+		
+		SettingsPopup {
+			anchorItem: root
+		}
 	}
 
-	SettingsPopup {
-		id: settingsPopup
-		anchorItem: root
+	MouseArea {
+		anchors.fill: parent
+
+		onClicked: {
+			settingsLoader.active = true
+
+			const popup = settingsLoader.item
+			if (popup) popup.toggle()
+		}
 	}
+
 }
