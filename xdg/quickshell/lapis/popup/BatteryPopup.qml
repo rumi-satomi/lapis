@@ -1,7 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import Quickshell
-import Quickshell.Io
 
 import "../singletons"
 import "../components"
@@ -11,38 +9,16 @@ LapisPopupWindow {
 
 	property int selectedRange: 24
 
-	property var history: []
+	readonly property var history: UpsService.history
 	property real nowSeconds: Date.now() / 1000
 	readonly property real windowStart: nowSeconds - selectedRange * 3600
-
-	FileView {
-		id: historyFile
-
-		path: Quickshell.dataDir + "/battery_history.json"
-
-		watchChanges: true
-		onFileChanged: reload()
-		onTextChanged: root.loadHistory()
-	}
-
-	function loadHistory() {
-		try {
-			let data = JSON.parse(historyFile.text())
-			history = data.history || []
-		} catch (e) {
-			history = []
-		}
-	}
 
 	Timer {
 		interval: 60000
 		running: true
 		repeat: true
 
-		onTriggered: {
-			root.nowSeconds = Date.now() / 1000
-			chart.requestPaint()
-		}
+		onTriggered: root.nowSeconds = Date.now() / 1000
 	}
 
 	body: ColumnLayout {
@@ -114,6 +90,13 @@ LapisPopupWindow {
 
 				function onSelectedRangeChanged() {
 					chart.requestPaint()
+				}
+
+				function onVisibleChanged() {
+					if (root.visible) {
+						root.nowSeconds = Date.now() / 1000
+						chart.requestPaint()
+					}
 				}
 			}
 

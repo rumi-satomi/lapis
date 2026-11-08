@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Controls
 
 import "../singletons"
 import "../components"
@@ -41,7 +40,7 @@ LapisPopupWindow {
 			}
 		}
 
-		Slider {
+		LapisSlider {
 			id: brightnessSlider
 
 			Layout.fillWidth: true
@@ -51,12 +50,8 @@ LapisPopupWindow {
 			stepSize: 1
 
 			enabled: BrightnessService.available
-
 			value: BrightnessService.brightness
-
-			onMoved: {
-				BrightnessService.setBrightness(value)
-			}
+			onMoved: BrightnessService.setBrightness(value)
 		}
 
 		LapisCheckBox {

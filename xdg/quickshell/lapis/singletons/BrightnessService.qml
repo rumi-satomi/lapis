@@ -11,6 +11,9 @@ Singleton {
 	property int maximum: 1
 	property bool available: false
 
+	property int pendingBrightness: -1
+	property int activeBrightness: -1
+
 	function refresh() {
 		if (!readMax.running && !readCurrent.running) readMax.running = true
 	}
@@ -19,8 +22,34 @@ Singleton {
 		if (!available) return
 
 		brightness = Math.max(1, Math.min(100, Math.round(percent)))
-		applyDelay.restart()
+
+		if (writeBrightness.running && activeBrightness === brightness) {
+			pendingBrightness = -1
+			return
+		}
+
+		pendingBrightness = brightness
+
+		flushPending()
 	}
+
+	function flushPending() {
+		if (!available) return
+		if (writeBrightness.running) return
+		if (pendingBrightness < 0) return
+
+		activeBrightness = pendingBrightness
+		pendingBrightness = -1
+
+		writeBrightness.command = [
+			"brightnessctl",
+			"-c", "backlight",
+			"set", activeBrightness + "%"
+		]
+
+		writeBrightness.running = true
+	}
+
 
 	Process {
 		id: readMax
@@ -58,26 +87,30 @@ Singleton {
 		}
 	}
 
-	Timer {
-		id: applyDelay
-
-		interval: 30
-		repeat: false
-
-		onTriggered: {
-			if (!root.available) return
-
-			writeBrightness.command = ["brightnessctl", "-c", "backlight", "set", root.brightness + "%"]
-			writeBrightness.running = true
-		}
-	}
-
 	Process {
 		id: writeBrightness
 		running: false
+
+		onRunningChanged: {
+			if (!running) {
+				root.activeBrightness = -1
+				if (root.pendingBrightness >= 0) root.flushPending()
+			}
+		}
+
+		onExited: (exitCode, exitStatus) => {
+			if (exitCode !== 0) {
+				console.warn("brightnessctl failed:", exitCode, exitStatus)
+			}
+		}
+
+		stderr: StdioCollector {
+			onStreamFinished: {
+				const message = text.trim()
+				if (message.length > 0) console.warn("brightnessctl:", message)
+			}
+		}
 	}
 
-	Component.onCompleted: {
-		refresh()
-	}
+	Component.onCompleted: refresh()
 }

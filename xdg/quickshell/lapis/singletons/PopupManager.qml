@@ -29,8 +29,7 @@ Singleton {
 
 	function toggle(popup) {
 		if (current === popup && !popup.closing) {
-			pending = null
-			popup.hideAnimated()
+			close(popup)
 		} else {
 			open(popup)
 		}
@@ -39,6 +38,12 @@ Singleton {
 	function close(popup) {
 		if (pending === popup) pending = null
 		if (current === popup) popup.hideAnimated()
+	}
+
+	function closeAll() {
+		pending = null
+
+		if (current) current.hideAnimated()
 	}
 
 	function release(popup) {
@@ -58,6 +63,5 @@ Singleton {
 
 		current = popup
 		popup.showAnimated()
-		console.info("Opened popup " + current)
 	}
 }

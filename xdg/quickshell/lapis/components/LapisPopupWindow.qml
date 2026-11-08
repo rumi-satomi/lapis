@@ -41,7 +41,7 @@ PopupWindow {
 	}
 
 	function close() {
-		hideAnimated()
+		PopupManager.close(root)
 	}
 
 	function showAnimated() {
@@ -72,7 +72,7 @@ PopupWindow {
 	}
 
 	onVisibleChanged: {
-		if (!visible) {
+		if (visible) {
 			wasShown = true
 			return
 		}

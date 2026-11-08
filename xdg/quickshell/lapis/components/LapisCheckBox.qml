@@ -6,6 +6,8 @@ import "../singletons"
 CheckBox {
 	id: root
 
+	implicitHeight: Theme.fontSize
+
 	indicator: Rectangle {
 		id: indicatorBox
 
