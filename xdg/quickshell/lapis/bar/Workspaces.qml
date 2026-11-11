@@ -25,7 +25,7 @@ ListView {
 
 		radius: Theme.radius
 
-		color: valid && workspace.focused ? Theme.primary : Theme.surface1
+		color: valid && workspace.focused ? Theme.primary : Theme.surfaceTint
 
 		Text {
 			id: label

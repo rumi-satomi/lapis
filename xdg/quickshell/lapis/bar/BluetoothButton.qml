@@ -9,7 +9,7 @@ Rectangle {
 	implicitHeight: Theme.barItemHeight
 
 	radius: Theme.radius
-	color: Theme.surface1
+	color: Theme.surfaceTint
 
 	Text {
 		id: label

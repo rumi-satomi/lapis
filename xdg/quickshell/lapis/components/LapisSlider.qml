@@ -18,7 +18,7 @@ Controls.Slider {
 		height: Theme.fontSize / 4
 
 		radius: height / 2
-		color: Theme.surface3
+		color: Theme.surfaceTint
 
 		Rectangle {
 			width: parent.width * root.visualPosition

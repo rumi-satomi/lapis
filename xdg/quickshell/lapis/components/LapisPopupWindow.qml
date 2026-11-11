@@ -110,7 +110,7 @@ PopupWindow {
 
 		background: Rectangle {
 			radius: Theme.radius
-			color: Theme.surface2
+			color: Theme.background
 		}
 	}
 

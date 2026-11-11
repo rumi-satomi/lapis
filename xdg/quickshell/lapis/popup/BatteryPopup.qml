@@ -52,7 +52,7 @@ LapisPopupWindow {
 
 					readonly property bool selected: selectedRange === modelData.hours
 
-					color: selected ? Theme.primary : Theme.surface3
+					color: selected ? Theme.primary : Theme.surfaceTint
 
 					Text {
 						anchors.centerIn: parent

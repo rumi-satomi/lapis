@@ -5,9 +5,19 @@ import Quickshell
 
 Singleton {
 	readonly property color background: "#121212"
-	readonly property color surface1: "#1E1E1E"
-	readonly property color surface2: "#222222"
-	readonly property color surface3: "#272727"
+	readonly property color surfaceTint: Qt.rgba(1, 1, 1, 0.05)
+
+	function toWvkbdColor(color) {
+		const hex = color.toString().slice(1)
+		return hex.length === 8 ? hex.slice(2) + hex.slice(0, 2) : hex
+	}
+
+	readonly property string backgroundWVKBD: toWvkbdColor(background)
+	readonly property string surfaceTintWVKBD: toWvkbdColor(Qt.rgba(
+		surfaceTint.r * surfaceTint.a + background.r * (1 - surfaceTint.a),
+		surfaceTint.g * surfaceTint.a + background.g * (1 - surfaceTint.a),
+		surfaceTint.b * surfaceTint.a + background.b * (1 - surfaceTint.a),
+	))
 
 	readonly property color primary: "#BB86FC"
 	readonly property color secondary: "#03DAC6"

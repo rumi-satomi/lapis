@@ -1,0 +1,37 @@
+#!/bin/sh
+set -eu
+
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+CONFIG="$ROOT/config/nvim"
+
+if [ ! -d "$CONFIG" ]; then
+	echo "Error: Neovim config not found: $CONFIG"
+	exit 1
+fi
+
+HOMES="/root"
+
+for home in /home/*; do
+	[ -d "$home" ] && HOMES="$HOMES $home"
+done
+
+for home in $HOMES; do
+	echo "Installing Neovim config for $home"
+
+	NVIM_CONFIG="$home/.config/nvim"
+
+	rm -rf "$NVIM_CONFIG"
+
+	mkdir -p "$NVIM_CONFIG"
+
+	cp -a "$CONFIG/." "$NVIM_CONFIG/"
+
+	if [ "$home" = "/root" ]; then
+		chown -R root:root "$NVIM_CONFIG"
+	else
+		user=$(basename "$home")
+		chown -R "$user:$user" "$NVIM_CONFIG"
+	fi
+done
+
+echo "Neovim configuration installed successfully!"

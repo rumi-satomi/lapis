@@ -16,9 +16,9 @@ Singleton {
 	function command() {
 		const args = [
 			Paths.wvkbd, "--hidden", "--no-popup",
-			"--bg", Theme.background.toString().slice(1),
-			"--fg", Theme.surface1.toString().slice(1),
-			"--fg-sp", Theme.surface1.toString().slice(1),
+			"--bg", Theme.backgroundWVKBD,
+			"--fg", Theme.surfaceTintWVKBD,
+			"--fg-sp", Theme.surfaceTintWVKBD,
 			"--press", Theme.primary.toString().slice(1),
 			"--press-sp", Theme.primary.toString().slice(1),
 			"--text", Theme.backgroundForeground.toString().slice(1)
